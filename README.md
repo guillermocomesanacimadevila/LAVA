@@ -1,11 +1,10 @@
 # Running LAVA
 
-
 ## 1. Setup
 
 ### 1a. Download reference data
 
-Download the reference data from **[Zenodo](https://doi.org/10.5281/zenodo.18986935)**., then run:
+Download the reference data from **[Zenodo](https://doi.org/10.5281/zenodo.18986935)**, then run:
 
 ```bash
 mkdir ref/
@@ -17,18 +16,20 @@ cd ..
 
 ---
 
-## 1b. Check Python and R are installed:
+## 1b. Check if Python and R are installed:
 
 ```bash
 python --version
 R --version
 ```
 
-Also, check whether pandas is installed: **if not do the following**
+Also, check whether pandas is installed: 
 
 ```bash
 pip list
 ```
+
+**if not do the following**
 
 ```bash
 pip install pandas
@@ -55,7 +56,7 @@ mkdir data/
 
 ---
 
-You data needs to be in this format before though (example: AD.tsv)
+You data needs to be in this format before though running any of the scripts (example: AD.tsv)
 
 ```bash
 SNP	A1	A2	FRQ	N	BETA	SE	P	CHR	POS
