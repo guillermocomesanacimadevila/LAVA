@@ -97,7 +97,7 @@ EOF
 6. Harmonise your summary stats to LAVAs format
 
 ```bash
-python3 prep_data.py \
+python3 bin/prep_data.py \
   -i data/AD.tsv \
   -o data/AD_lava_ready.tsv
 ```
