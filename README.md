@@ -82,7 +82,9 @@ EOF
 
 ---
 
-5. Assemble intercept matrix (from LDSC output!) - stay within info/!
+5. Assemble intercept matrix (from LDSC output!) - stay within info/! 
+
+**It has to be a 2x2 matrix!**
 
 ```bash
 cat <<EOF > intercept_matrix_ad_scz_ldsc.csv
