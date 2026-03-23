@@ -4,7 +4,7 @@
 
 ### 1a. Download reference data
 
-Download the reference data from **[Zenodo](https://doi.org/10.5281/zenodo.18986935)**, then run:
+Download the reference data from **[Zenodo](https://zenodo.org/records/19191337)**, then run:
 
 ```bash
 mkdir ref/
