@@ -103,7 +103,7 @@ python3 prep_data.py \
 ```
 
 ```bash
-python3 prep_data.py \
+python3 bin/prep_data.py \
   -i data/SCZ.tsv \
   -o data/SCZ_lava_ready.tsv
 ```
