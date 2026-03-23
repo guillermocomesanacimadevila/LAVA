@@ -52,8 +52,9 @@ dir.create(dirname(info_tsv), recursive = TRUE, showWarnings = FALSE)
 fwrite(info, info_tsv, sep = "\t", quote = FALSE, na = "NA")
 
 loci   <- read.loci(loci_file)
-p_gate <- 0.05 / nrow(loci)
+p_gate <- 0.05 / nrow(loci) # for both univ h2 gait + biv rho(X, Y)
 
+# REMINDER: in case I bloody forget to re run QC py script
 is_mhc <- function(chr, start, stop) {
   chr6  <- as.character(chr) %in% c("6", "chr6")
   inwin <- !(stop < 25000000 | start > 34000000)
@@ -83,12 +84,9 @@ ri <- 0L
 for (i in seq_len(nrow(loci))) {
   pb$tick()
   loc <- process.locus(loci[i, ], inp)
-  
   ph <- intersect(loc$phenos, PHENOS)
   if (length(ph) < 2) next
-  
   uni <- run.univ(loc, phenos = ph)
-  
   h2 <- setNames(rep(NA_real_, length(PHENOS)), PHENOS)
   pu <- setNames(rep(NA_real_, length(PHENOS)), PHENOS)
   if (!is.null(uni) && nrow(uni) > 0) {
@@ -101,10 +99,8 @@ for (i in seq_len(nrow(loci))) {
   gate1 <- is.finite(h2[ph1_name]) && h2[ph1_name] > 0 && is.finite(pu[ph1_name]) && pu[ph1_name] < p_gate
   gate2 <- is.finite(h2[ph2_name]) && h2[ph2_name] > 0 && is.finite(pu[ph2_name]) && pu[ph2_name] < p_gate
   if (!(gate1 && gate2)) next
-  
   bv <- try(run.bivar(loc, phenos = c(ph1_name, ph2_name), param.lim = 2), silent = TRUE)
   if (inherits(bv, "try-error") || is.null(bv) || nrow(bv) == 0) next
-  
   lc <- if (
     is.finite(bv$rho) &&
     is.finite(h2[ph1_name]) && is.finite(h2[ph2_name]) &&
@@ -147,7 +143,7 @@ if (nrow(bivar) > 0) {
   }
 }
 
-fwrite(bivar, file.path(out_dir, "LAVA_local_rg_bivariate.tsv"), sep = "\t")
+fwrite(bivar, file.path(out_dir, "LAVA_local_rg_bivariate.tsv"), sep = "\t") 
 cat("Saved:\n")
 cat(file.path(out_dir, "LAVA_local_rg_bivariate.tsv"), "\n")
-cat(file.path(out_dir, "overlap_corr_for_LAVA_", paste(PHENOS, collapse = "_"), ".csv"), "\n")
+cat(file.path(out_dir, "overlap_corr_for_LAVA_", paste(PHENOS, collapse = "_"), ".csv"), "\n") # intercept => remember to change name before publishing neurobridge
